@@ -6,13 +6,11 @@ questions:
 - "How to find your way around RStudio?"
 - "How to interact with R?"
 - "How to manage your environment?"
-- "How to install packages?"
 objectives:
 - "Describe the purpose and use of each pane in the RStudio IDE"
 - "Locate buttons and options in the RStudio IDE"
 - "Define a variable"
 - "Assign data to a variable"
-- "Manage a workspace in an interactive R session"
 - "Use mathematical and comparison operators"
 - "Call functions"
 - "Manage packages"
@@ -24,16 +22,12 @@ keypoints:
 - "Use `rm()` to delete objects in a program."
 - "Use `install.packages()` to install packages (libraries)."
 source: Rmd
-output:
-  md_document:
-    variant: markdown_github
 ---
 
 ```{r, include=FALSE}
 source("../bin/chunk-options.R")
 knitr_fig_path("01-")
 ```
-
 
 ## Motivation
 
@@ -42,23 +36,27 @@ data, the real fun begins! This lesson will teach you how to start this process 
 R and RStudio. We will begin with raw data, perform exploratory analyses, and learn
 how to plot results graphically. This example starts with a dataset from
 [gapminder.org](https://www.gapminder.org) containing population information for many
-countries through time. Can you read the data into R? Can you plot the population for
-Senegal? Can you calculate the average income for countries on continent of Asia?
-By the end of these lessons you will be able to do things like plot the populations
-for all of these countries in under a minute!
+countries through time. 
 
-## Before Starting The Workshop
+###By the end of these lessons you will be able to
+- read data into R 
+- plot the population for Senegal? 
+- calculate the average income for Asian countries
+- plot the populations for all of these countries
+
+## If you're using your own computer:
 
 Please ensure you have the latest version of R and RStudio installed on your machine. This is important, as some packages used in the workshop may not install correctly (or at all) if R is not up to date.
 
 [Download and install the latest version of R here](https://www.r-project.org/)
+
 [Download and install RStudio here](https://www.rstudio.com/)
 
 ## Introduction to RStudio
 
 Welcome to the R portion of the Software Carpentry workshop.
 
-Throughout this lesson, we're going to teach you some of the fundamentals of
+Throughout this lesson, we're going to teach you the fundamentals of
 the R language as well as some best practices for organizing code for
 scientific projects that will make your life easier.
 
@@ -69,7 +67,7 @@ control and project management.
 
 
 
-**Basic layout**
+###Basic layout
 
 When you first open RStudio, you will be greeted by three panels:
 
@@ -111,6 +109,8 @@ interactive R console.
 > there is no need to reselct the section and `Run`, you can use the next button
 > along, `Re-run the previous region`. This will run the previous code block
 > including the modifications you have made.
+> - item 1
+> - item 2
 {: .callout}
 
 ## Introduction to R
