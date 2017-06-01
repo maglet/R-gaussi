@@ -129,11 +129,15 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  base     
 
 other attached packages:
-[1] checkpoint_0.4.0 stringr_1.1.0    knitr_1.14      
+[1] dplyr_0.5.0      ggplot2_2.2.0    checkpoint_0.4.0 stringr_1.1.0   
+[5] knitr_1.14      
 
 loaded via a namespace (and not attached):
-[1] magrittr_1.5  formatR_1.4   tools_3.3.2   stringi_1.1.1 methods_3.3.2
-[6] evaluate_0.9 
+ [1] Rcpp_0.12.7      digest_0.6.10    assertthat_0.1   R6_2.1.3        
+ [5] grid_3.3.2       plyr_1.8.4       DBI_0.5          gtable_0.2.0    
+ [9] formatR_1.4      magrittr_1.5     evaluate_0.9     scales_0.4.1    
+[13] stringi_1.1.1    lazyeval_0.2.0   labeling_0.3     tools_3.3.2     
+[17] munsell_0.4.3    colorspace_1.2-6 methods_3.3.2    tibble_1.2      
 ~~~
 {: .output}
 
