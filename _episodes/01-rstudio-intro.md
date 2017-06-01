@@ -6,13 +6,10 @@ questions:
 - "How to find your way around RStudio?"
 - "How to interact with R?"
 - "How to manage your environment?"
-- "How to install packages?"
 objectives:
 - "Describe the purpose and use of each pane in the RStudio IDE"
 - "Locate buttons and options in the RStudio IDE"
-- "Define a variable"
-- "Assign data to a variable"
-- "Manage a workspace in an interactive R session"
+- "Create and assign values to variables"
 - "Use mathematical and comparison operators"
 - "Call functions"
 - "Manage packages"
@@ -24,11 +21,7 @@ keypoints:
 - "Use `rm()` to delete objects in a program."
 - "Use `install.packages()` to install packages (libraries)."
 source: Rmd
-output:
-  md_document:
-    variant: markdown_github
 ---
-
 
 
 
@@ -39,23 +32,25 @@ data, the real fun begins! This lesson will teach you how to start this process 
 R and RStudio. We will begin with raw data, perform exploratory analyses, and learn
 how to plot results graphically. This example starts with a dataset from
 [gapminder.org](https://www.gapminder.org) containing population information for many
-countries through time. Can you read the data into R? Can you plot the population for
-Senegal? Can you calculate the average income for countries on continent of Asia?
-By the end of these lessons you will be able to do things like plot the populations
-for all of these countries in under a minute!
+countries through time. 
 
-## Before Starting The Workshop
+### By the end of these lessons you will be able to
+- read data into R 
+- plot the population for Senegal? 
+- calculate the average income for Asian countries
+- plot the populations for all of these countries
+
+## If you're using your own computer:
 
 Please ensure you have the latest version of R and RStudio installed on your machine. This is important, as some packages used in the workshop may not install correctly (or at all) if R is not up to date.
 
-[Download and install the latest version of R here](https://www.r-project.org/)
-[Download and install RStudio here](https://www.rstudio.com/)
+- [Download and install the latest version of R here](https://www.r-project.org/)
+
+- [Download and install RStudio here](https://www.rstudio.com/)
 
 ## Introduction to RStudio
 
-Welcome to the R portion of the Software Carpentry workshop.
-
-Throughout this lesson, we're going to teach you some of the fundamentals of
+This lesson covers the fundamentals of
 the R language as well as some best practices for organizing code for
 scientific projects that will make your life easier.
 
@@ -64,11 +59,7 @@ environment. It provides a built in editor, works on all platforms (including
 on servers) and provides many advantages such as integration with version
 control and project management.
 
-
-
-**Basic layout**
-
-When you first open RStudio, you will be greeted by three panels:
+### At startup,  RStudio has three panels:
 
   * The interactive R console (entire left)
   * Environment/History (tabbed in upper right)
@@ -82,7 +73,7 @@ in the top left.
 ![RStudio layout with .R file open](../fig/01-rstudio-script.png)
 
 
-## Work flow within RStudio
+## Workflow within RStudio
 There are two main ways one can work within RStudio.
 
 1. Test and play within the interactive R console then copy code into
@@ -99,11 +90,17 @@ interactive R console.
 > ## Tip: Running segments of your code
 >
 > RStudio offers you great flexibility in running code from within the editor
-> window. There are buttons, menu choices, and keyboard shortcuts. To run the
-> current line, you can 1. click on the `Run` button above the editor panel,
-> or 2. select "Run Lines" from the "Code" menu, or 3. hit Ctrl-Enter in Windows
-> or Linux or Command-Enter on OS X. (This shortcut can also be seen by hovering
-> the mouse over the button). To run a block of code, select it and then `Run`.
+> window. There are buttons, menu choices, and keyboard shortcuts. 
+>
+>To *run the current line*, you can 
+>
+> 1. click on the `Run` button above the editor panel,
+> 2. select `Run Lines` from the `Code` menu, or 
+> 3. hit Ctrl-Enter in Windows or Linux or Command-Enter on OS X. (This shortcut can also be seen by hovering
+> the mouse over the button). 
+>
+> To *run a block of code*, select it and then `Run`.
+> 
 > If you have modified a line of code within a block of code you have just run,
 > there is no need to reselct the section and `Run`, you can use the next button
 > along, `Re-run the previous region`. This will run the previous code block
@@ -119,11 +116,11 @@ file. This console in RStudio is the same as the one you would get if
 you typed in `R` in your command-line environment.
 
 The first thing you will see in the R interactive session is a bunch
-of information, followed by a ">" and a blinking cursor. In many ways
-this is similar to the shell environment you learned about during the
-shell lessons: it operates on the same idea of a "Read, evaluate,
-print loop": you type in commands, R tries to execute them, and then
-returns a result.
+of information, followed by a ">" and a blinking cursor. It operates 
+on  a "Read, evaluate, print loop": 
+1. you type in commands, 
+2. R tries to execute them, 
+3. and then returns a result.
 
 ## Using R as a calculator
 
@@ -145,7 +142,7 @@ The simplest thing you could do with R is do arithmetic:
 And R will print out the answer, with a preceding "[1]". Don't worry about this
 for now, we'll explain that later. For now think of it as indicating output.
 
-Like bash, if you type in an incomplete command, R will wait for you to
+If you type in an incomplete command, R will wait for you to
 complete it:
 
 ~~~
@@ -160,21 +157,8 @@ complete it:
 
 Any time you hit return and the R session shows a "+" instead of a ">", it
 means it's waiting for you to complete the command. If you want to cancel
-a command you can simply hit "Esc" and RStudio will give you back the ">"
+a command you can simply hit `Esc` and RStudio will give you back the ">"
 prompt.
-
-> ## Tip: Cancelling commands
->
-> If you're using R from the commandline instead of from within RStudio,
-> you need to use `Ctrl+C` instead of `Esc` to cancel the command. This
-> applies to Mac users as well!
->
-> Cancelling a command isn't only useful for killing incomplete commands:
-> you can also use it to tell R to stop running code (for example if it's
-> taking much longer than you expect), or to get rid of the code you're
-> currently writing.
->
-{: .callout}
 
 When using R as a calculator, the order of operations is the same as you
 would have learned back in school.
@@ -231,41 +215,8 @@ Remember that others may later read your code.
 
 
 The text after each line of code is called a
-"comment". Anything that follows after the hash (or octothorpe) symbol
+"comment". Anything that follows after the hash symbol
 `#` is ignored by R when it executes code.
-
-Really small or large numbers get a scientific notation:
-
-
-~~~
-2/10000
-~~~
-{: .r}
-
-
-
-~~~
-[1] 2e-04
-~~~
-{: .output}
-
-Which is shorthand for "multiplied by `10^XX`". So `2e-4`
-is shorthand for `2 * 10^(-4)`.
-
-You can write numbers in scientific notation too:
-
-
-~~~
-5e3  # Note the lack of minus here
-~~~
-{: .r}
-
-
-
-~~~
-[1] 5000
-~~~
-{: .output}
 
 ## Mathematical functions
 
@@ -469,9 +420,6 @@ x
 ~~~
 {: .output}
 
-More precisely, the stored value is a *decimal approximation* of
-this fraction called a [floating point number](http://en.wikipedia.org/wiki/Floating_point).
-
 Look for the `Environment` tab in one of the panes of RStudio, and you will see that `x` and its value
 have appeared. Our variable `x` can be used in place of a number in any calculation that expects a number:
 
@@ -509,15 +457,136 @@ x <- x + 1 #notice how RStudio updates its description of x on the top right tab
 The right hand side of the assignment can be any valid R expression.
 The right hand side is *fully evaluated* before the assignment occurs.
 
-Variable names can contain letters, numbers, underscores and periods. They
-cannot start with a number nor contain spaces at all. Different people use
-different conventions for long variable names, these include
+> ## Challenge 1
+>
+> What will be the value of each  variable  after each
+> statement in the following program?
+>
+> 
+> ~~~
+> mass <- 47.5
+> age <- 122
+> mass <- mass * 2.3
+> age <- age - 20
+> ~~~
+> {: .r}
+>
+> > ## Solution to challenge 1
+> >
+> > 
+> > ~~~
+> > mass <- 47.5
+> > ~~~
+> > {: .r}
+> > This will give a value of 47.5 for the variable mass
+> >
+> > 
+> > ~~~
+> > age <- 122
+> > ~~~
+> > {: .r}
+> > This will give a value of 122 for the variable age
+> >
+> > 
+> > ~~~
+> > mass <- mass * 2.3
+> > ~~~
+> > {: .r}
+> > This will multiply the existing value of 47.5 by 2.3 to give a new value of
+> > 109.25 to the variable mass.
+> >
+> > 
+> > ~~~
+> > age <- age - 20
+> > ~~~
+> > {: .r}
+> > This will subtract 20 from the existing value of 122 to give a new value
+> > of 102 to the variable age.
+> {: .solution}
+{: .challenge}
+
+> ## Challenge 2
+>
+> Run the code from the previous challenge, and write a command to
+> compare mass to age. Is mass larger than age?
+>
+> > ## Solution to challenge 2
+> >
+> > One way of answering this question in R is to use the `>` to set up the following:
+> > 
+> > ~~~
+> > mass > age
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] TRUE
+> > ~~~
+> > {: .output}
+> > This should yield a boolean value of TRUE since 109.25 is greater than 102.
+> {: .solution}
+{: .challenge}
+
+### Rules for variable naming
+1. Variable names can contain letters, numbers, underscores and periods. 
+
+2. They cannot start with a number nor contain spaces at all. 
+
+3. Different people use different conventions for long variable names, these include
 
   * periods.between.words
   * underscores\_between_words
   * camelCaseToSeparateWords
 
 What you use is up to you, but **be consistent**.
+
+> ## Challenge 3
+>
+> Which of the following are valid R variable names?
+> 
+> ~~~
+> min_height
+> max.height
+> _age
+> .mass
+> MaxLength
+> min-length
+> 2widths
+> celsius2kelvin
+> ~~~
+> {: .r}
+>
+> > ## Solution to challenge 3
+> >
+> > The following can be used as R variables:
+> > 
+> > ~~~
+> > min_height
+> > max.height
+> > MaxLength
+> > celsius2kelvin
+> > ~~~
+> > {: .r}
+> >
+> > The following creates a hidden variable:
+> > 
+> > ~~~
+> > .mass
+> > ~~~
+> > {: .r}
+> >
+> > The following will not be able to be used to create a variable
+> > 
+> > ~~~
+> > _age
+> > min-length
+> > 2widths
+> > ~~~
+> > {: .r}
+> {: .solution}
+{: .challenge}
 
 It is also possible to use the `=` operator for assignment:
 
@@ -531,56 +600,6 @@ But this is much less common among R users.  The most important thing is to
 **be consistent** with the operator you use. There are occasionally places
 where it is less confusing to use `<-` than `=`, and it is the most common
 symbol used in the community. So the recommendation is to use `<-`.
-
-## Vectorization
-
-One final thing to be aware of is that R is *vectorized*, meaning that
-variables and functions can have vectors as values. For example
-
-
-~~~
-1:5
-~~~
-{: .r}
-
-
-
-~~~
-[1] 1 2 3 4 5
-~~~
-{: .output}
-
-
-
-~~~
-2^(1:5)
-~~~
-{: .r}
-
-
-
-~~~
-[1]  2  4  8 16 32
-~~~
-{: .output}
-
-
-
-~~~
-x <- 1:5
-2^x
-~~~
-{: .r}
-
-
-
-~~~
-[1]  2  4  8 16 32
-~~~
-{: .output}
-
-This is incredibly powerful; we will discuss this further in an
-upcoming lesson.
 
 
 ## Managing your environment
@@ -599,7 +618,7 @@ ls()
 
 
 ~~~
-[1] "x" "y"
+[1] "age"  "mass" "x"    "y"   
 ~~~
 {: .output}
 
@@ -656,7 +675,7 @@ function (name, pos = -1L, envir = as.environment(pos), all.names = FALSE,
     }
     else all.names
 }
-<bytecode: 0x7fb9ae4d6098>
+<bytecode: 0x7f958433d098>
 <environment: namespace:base>
 ~~~
 {: .output}
@@ -700,6 +719,36 @@ Error in rm(list <- ls()): ... must contain names or character strings
 ~~~
 {: .error}
 
+> ## Challenge 4
+>
+> Clean up your working environment by deleting the mass and age
+> variables.
+>
+> > ## Solution to challenge 4
+> >
+> > We can use the `rm` command to accomplish this task
+> > 
+> > ~~~
+> > rm(age, mass)
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning in rm(age, mass): object 'age' not found
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning in rm(age, mass): object 'mass' not found
+> > ~~~
+> > {: .error}
+> {: .solution}
+{: .challenge}
+
 > ## Tip: Warnings vs. Errors
 >
 > Pay attention when R does something unexpected! Errors, like above,
@@ -714,7 +763,7 @@ Error in rm(list <- ls()): ... must contain names or character strings
 
 ## R Packages
 
-It is possible to add functions to R by writing a package, or by
+You can add functions to R by writing a package, or by
 obtaining a package written by someone else. As of this writing, there
 are over 10,000 packages available on CRAN (the comprehensive R archive
 network). R and RStudio have functionality for managing packages:
@@ -727,155 +776,6 @@ network). R and RStudio have functionality for managing packages:
 * You can remove a package with `remove.packages("packagename")`
 * You can make a package available for use with `library(packagename)`
 
-> ## Challenge 1
->
-> Which of the following are valid R variable names?
-> 
-> ~~~
-> min_height
-> max.height
-> _age
-> .mass
-> MaxLength
-> min-length
-> 2widths
-> celsius2kelvin
-> ~~~
-> {: .r}
->
-> > ## Solution to challenge 1
-> >
-> > The following can be used as R variables:
-> > 
-> > ~~~
-> > min_height
-> > max.height
-> > MaxLength
-> > celsius2kelvin
-> > ~~~
-> > {: .r}
-> >
-> > The following creates a hidden variable:
-> > 
-> > ~~~
-> > .mass
-> > ~~~
-> > {: .r}
-> >
-> > The following will not be able to be used to create a variable
-> > 
-> > ~~~
-> > _age
-> > min-length
-> > 2widths
-> > ~~~
-> > {: .r}
-> {: .solution}
-{: .challenge}
-
-> ## Challenge 2
->
-> What will be the value of each  variable  after each
-> statement in the following program?
->
-> 
-> ~~~
-> mass <- 47.5
-> age <- 122
-> mass <- mass * 2.3
-> age <- age - 20
-> ~~~
-> {: .r}
->
-> > ## Solution to challenge 2
-> >
-> > 
-> > ~~~
-> > mass <- 47.5
-> > ~~~
-> > {: .r}
-> > This will give a value of 47.5 for the variable mass
-> >
-> > 
-> > ~~~
-> > age <- 122
-> > ~~~
-> > {: .r}
-> > This will give a value of 122 for the variable age
-> >
-> > 
-> > ~~~
-> > mass <- mass * 2.3
-> > ~~~
-> > {: .r}
-> > This will multiply the existing value of 47.5 by 2.3 to give a new value of
-> > 109.25 to the variable mass.
-> >
-> > 
-> > ~~~
-> > age <- age - 20
-> > ~~~
-> > {: .r}
-> > This will subtract 20 from the existing value of 122 to give a new value
-> > of 102 to the variable age.
-> {: .solution}
-{: .challenge}
-
-
-> ## Challenge 3
->
-> Run the code from the previous challenge, and write a command to
-> compare mass to age. Is mass larger than age?
->
-> > ## Solution to challenge 3
-> >
-> > One way of answering this question in R is to use the `>` to set up the following:
-> > 
-> > ~~~
-> > mass > age
-> > ~~~
-> > {: .r}
-> > 
-> > 
-> > 
-> > ~~~
-> > [1] TRUE
-> > ~~~
-> > {: .output}
-> > This should yield a boolean value of TRUE since 109.25 is greater than 102.
-> {: .solution}
-{: .challenge}
-
-
-> ## Challenge 4
->
-> Clean up your working environment by deleting the mass and age
-> variables.
->
-> > ## Solution to challenge 4
-> >
-> > We can use the `rm` command to accomplish this task
-> > 
-> > ~~~
-> > rm(age, mass)
-> > ~~~
-> > {: .r}
-> {: .solution}
-{: .challenge}
-
-> ## Challenge 5
->
-> Install the following packages: `ggplot2`, `plyr`, `gapminder`
->
-> > ## Solution to challenge 5
-> >
-> > We can use the `install.packages()` command to install the required packages.
-> > 
-> > ~~~
-> > install.packages("ggplot2")
-> > install.packages("plyr")
-> > install.packages("gapminder")
-> > ~~~
-> > {: .r}
-> {: .solution}
-{: .challenge}
+All the packages you need for this lesson are installed on the library computers. 
+If you're using your own device, please install dplyr and ggplot2 using the
+`install.packages` function.
