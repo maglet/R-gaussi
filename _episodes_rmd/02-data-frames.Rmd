@@ -105,7 +105,7 @@ head(gapminder)
 To make sure our analysis is reproducible, we should put the code
 into a script file so we can come back to it later.
 
-> ## Challenge
+> ## Challenge 1
 >
 > Read the output of `str(gapminder)` again;
 > this time, use what you've learned about factors, lists and vectors,
@@ -128,7 +128,7 @@ into a script file so we can come back to it later.
 There are many instances where you want to use only a part of a dataset instead of the whole thing. That's where **subsetting** comes in. R has many powerful subset operators and mastering them will allow you to
 easily perform complex operations on any kind of dataset. 
 
-Subetting lets you select a single data element or separate based on a factor. For example, what if you want all of the data concerning countries in Asia in the gapminder dataset. 
+Subsetting lets you select a single data element or separate based on a factor. For example, what if you want all of the data concerning countries in Asia in the gapminder dataset. 
 
 
 There are three ways to subset: by index, by name and by logical operators. Let's look at subsetting by index first. 
@@ -149,11 +149,15 @@ That means we want all of the fifth column loaded into x. Let's say we want to p
 x[3]
 ```
 
-We can ask for multiple elements at once. The following code selects the first and third elements using the `c`, or concatenate, function. `c` creates a vector of numbers that can be used for subsetting.
+We can ask for multiple elements at once using the `c`, or concatenate, function. `c` creates a vector of numbers that can be used for subsetting. For example, the following code creates a vector with the numbers 1 and 3 in it.
 
 ```{r}
-x[c(1, 3)]
 c(1,3)
+```
+
+We can use this vector inside the square brackets after x to get the first and third elements.
+```{r}
+x[c(1, 3)]
 ```
 
 We can also ask for slices of the vector using the `:` operator.
@@ -162,9 +166,13 @@ We can also ask for slices of the vector using the `:` operator.
 x[1:4]
 ```
 
-the `:` operator creates a sequence of numbers from the left element to the right. You can use the `c` function to do something similar
+the `:` operator creates a sequence of numbers from the left element to the right. 
 ```{r}
 1:4
+```
+
+You can use the `c` function to do something similar
+```{r}
 c(1, 2, 3, 4)
 ```
 
@@ -199,13 +207,14 @@ gapminder[3,]
 4. This works similarly if you want to select one column, but it's kind of redundant with #1 above.
 
 ```{r}
-gapminder[,3]
+head(gapminder[,1])
 ```
 
 5. You can use the `c` function, and the `:` operator just like with a single column
 
 ```{r}
 gapminder[1:3,]
+gapminder[c(1,3),]
 ```
 
 > ## Tip: Getting help for operators
@@ -215,7 +224,7 @@ gapminder[1:3,]
 >
 {: .callout}
 
-> ## Challenge 8
+> ## Challenge 2
 >
 > 1. Why does `gapminder[1:20]` return an error? How does it differ from `gapminder[1:20, ]`?
 >
@@ -223,7 +232,7 @@ gapminder[1:3,]
 > 2. Create a new `data.frame` called `gapminder_small` that only contains rows 1 through 9
 > and 19 through 23. You can do this in one or two steps.
 >
-> > ## Solution to challenge 8
+> > ## Solution to challenge 2
 > >
 > > 1.  `gapminder` is a data.frame so needs to be subsetted on two dimensions. `gapminder[1:20, ]` subsets the data to give the first 20 rows and all columns.
 > >
@@ -256,37 +265,40 @@ head(gapminder$year)
 ```
 
 
-
 ## Subsetting through other logical operations
 
-We can also more simply subset through logical operations:
+We can also more simply subset through logical operations. To illustrate, let's make a vector called n10 that contains integers 1 through 10.
 
 ```{r}
-x[c(TRUE, TRUE, FALSE, FALSE)]
+n10<-1:10
 ```
 
-Note that in this case, the logical vector is also recycled to the
-length of the vector we're subsetting!
+Let's subset the odd numbers using `TRUE` and `FALSE`. 
 
 ```{r}
-x[c(TRUE, FALSE)]
+n10[c(TRUE, FALSE, TRUE, FALSE, TRUE, FALSE,TRUE, FALSE, TRUE, FALSE)]
 ```
 
+Pretty neat, huh? We can do this even more simply because,  the logical vector is also recycled to the length of the vector we're subsetting!
+
+```{r}
+n10[c(TRUE, FALSE)]
+```
+
+### Using logical operators
 Since comparison operators evaluate to logical vectors, we can also
-use them to succinctly subset vectors:
+use them to succinctly subset vectors. Let's find countries with a life expectancy greater than 80 years.
 
 ```{r}
-x[x > 7]
+gapminder[gapminder$lifeExp > 80, ]
 ```
 
-## Factor subsetting
+#### Factor subsetting
 
-Factor subsetting works the same way as vector subsetting.
+Factor subsetting works the same way as vector subsetting. Let's look for records of countries in Oceania.
 
 ```{r}
-f <- gapminder$continent
-f[f == "Asia"]
-f[1:3]
+gapminder[gapminder$continent == "Oceania",]
 ```
 
 > ## Tip: Combining logical conditions
@@ -323,7 +335,8 @@ f[1:3]
 
 > ## Challenge 3
 >
-> Given the gapminder dataset, write a subsetting command to return the values > that are greater than 30 and less than 60.
+> Given the gapminder dataset, write a subsetting command to return the values
+> that are greater than 30 and less than 60.
 >
 > > ## Solution to challenge 3
 > >
@@ -334,7 +347,7 @@ f[1:3]
 > {: .solution}
 {: .challenge}
 
-> ## Challenge 7
+> ## Challenge 4
 >
 > Fix each of the following common data frame subsetting errors:
 >
@@ -344,12 +357,10 @@ f[1:3]
 >    gapminder[gapminder$year = 1957,]
 >    ```
 >
->    ```
->
-> 2. Extract the rows where the life expectancy is longer the 80 years
+> 2. Extract the rows where the gdp per capita is greater than 30000
 >
 >    ```{r, eval=FALSE}
->    gapminder[gapminder$lifeExp > 80]
+>    gapminder[gapminder$gdp > 30000]
 >    ```
 >
 > 3. Extract the first row, and the fourth and fifth columns
@@ -366,7 +377,7 @@ f[1:3]
 >    gapminder[gapminder$year == 2002 | 2007,]
 >    ```
 >
-> > ## Solution to challenge 7
+> > ## Solution to challenge 4
 > >
 > > Fix each of the following common data frame subsetting errors:
 > >
@@ -403,18 +414,3 @@ f[1:3]
 > >     ```
 > {: .solution}
 {: .challenge}
-
-
-## Handling special values
-
-At some point you will encounter functions in R which cannot handle missing, infinite,
-or undefined data.
-
-There are a number of special functions you can use to filter out this data:
-
- * `is.na` will return all positions in a vector, matrix, or data.frame
-   containing `NA`.
- * likewise, `is.nan`, and `is.infinite` will do the same for `NaN` and `Inf`.
- * `is.finite` will return all positions in a vector, matrix, or data.frame
-   that do not contain `NA`, `NaN` or `Inf`.
- * `na.omit` will filter out all missing values from a vector
