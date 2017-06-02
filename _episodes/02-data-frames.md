@@ -26,8 +26,10 @@ source: Rmd
 
 
 
-In this lesson, we'll learn about working with data frames using the gapminder 
+In this lesson, we'll learn about working with data frames using the gapminder
 dataset in your R project folder:
+
+To load the data table into an R variable, use the `read.csv` function.
 
 
 ~~~
@@ -35,8 +37,7 @@ gapminder <- read.csv("data/gapminder-FiveYearData.csv")
 ~~~
 {: .r}
 
-Let's investigate gapminder a bit; the first thing we should always do is check
-out what the data looks like with `str`:
+Let's investigate gapminder a bit; the first thing we should always do is check out what the data looks like with `str`:
 
 
 ~~~
@@ -245,14 +246,37 @@ into a script file so we can come back to it later.
 > {: .solution}
 {: .challenge}
 
-R has many powerful subset operators and mastering them will allow you to
-easily perform complex operations on any kind of dataset.
+## Subsetting
 
-There are six different ways we can subset any kind of object, and three
-different subsetting operators for the different data structures.
+There are many instances where you want to use only a part of a dataset instead of the whole thing. That's where **subsetting** comes in. R has many powerful subset operators and mastering them will allow you to
+easily perform complex operations on any kind of dataset. 
+
+Subetting lets you select a single data element or separate based on a factor. For example, what if you want all of the data concerning countries in Asia in the gapminder dataset. 
 
 
-## Accessing elements using their indices
+There are three ways to subset: by index, by name and by logical operators. Let's look at subsetting by index first. 
+
+### Accessing elements using their indices
+
+To simplify things, only look at one column of the data frame: `lifeExp`. From `str`, we know that it's the fifth column in the data frame. 
+
+To load the `lifeExp` column into a new variable x: 
+
+
+~~~
+x<-lifeExp[,5]
+~~~
+{: .r}
+
+
+
+~~~
+Error in eval(expr, envir, enclos): object 'lifeExp' not found
+~~~
+{: .error}
+
+That means we want all of the fifth column loaded into x. Let's say we want to pick out the third element of x:
+
 
 ~~~
 x[3]
@@ -265,7 +289,8 @@ x[3]
 [1] NA
 ~~~
 {: .output}
-We can ask for multiple elements at once:
+
+We can ask for multiple elements at once. This coke picks out the first and third elements using the `c`, or concatenate, function. `c` creates a vector of numbers that can be used for subsetting.
 
 
 ~~~
@@ -280,7 +305,7 @@ x[c(1, 3)]
 ~~~
 {: .output}
 
-Or slices of the vector:
+We can also ask for slices of the vector using the `:` operator. The following code makes a vector of all numbers 1-4, and hence the first 4 elements of x.
 
 
 ~~~
@@ -328,7 +353,7 @@ If we ask for a number outside of the vector, R will return missing values:
 
 
 ~~~
-x[6]
+x[1800]
 ~~~
 {: .r}
 
@@ -338,102 +363,6 @@ x[6]
 [1] NA
 ~~~
 {: .output}
-
-
-
-## Skipping and removing elements
-
-If we use a negative number as the index of a vector, R will return
-every element *except* for the one specified:
-
-
-~~~
-x[-2]
-~~~
-{: .r}
-
-
-
-~~~
-[1] "_episodes_rmd/02-data-frames.Rmd"
-~~~
-{: .output}
-
-
-We can skip multiple elements:
-
-
-~~~
-x[c(-1, -5)]  # or x[-c(1,5)]
-~~~
-{: .r}
-
-
-
-~~~
-character(0)
-~~~
-{: .output}
-
-> ## Tip: Order of operations
->
-> A common trip up for novices occurs when trying to skip
-> slices of a vector. Most people first try to negate a
-> sequence like so:
->
-> 
-> ~~~
-> x[-1:3]
-> ~~~
-> {: .r}
->
-> This gives a somewhat cryptic error:
->
-> 
-> ~~~
-> Error in x[-1:3]: only 0's may be mixed with negative subscripts
-> ~~~
-> {: .error}
->
-> But remember the order of operations. `:` is really a function, so
-> what happens is it takes its first argument as -1, and second as 3,
-> so generates the sequence of numbers: `c(-1, 0, 1, 2, 3)`.
->
-> The correct solution is to wrap that function call in brackets, so
-> that the `-` operator applies to the results:
->
-> 
-> ~~~
-> x[-(1:3)]
-> ~~~
-> {: .r}
-> 
-> 
-> 
-> ~~~
-> character(0)
-> ~~~
-> {: .output}
-{: .callout}
-
-
-To remove elements from a vector, we need to assign the results back
-into the variable:
-
-
-~~~
-x <- x[-4]
-x
-~~~
-{: .r}
-
-
-
-~~~
-[1] "_episodes_rmd/02-data-frames.Rmd"
-~~~
-{: .output}
-
 
 ## Subsetting by name
 
@@ -456,210 +385,12 @@ This is usually a much more reliable way to subset objects: the
 position of various elements can often change when chaining together
 subsetting operations, but the names will always remain the same!
 
-Unfortunately we can't skip or remove elements so easily.
-
-To skip (or remove) a single named element:
-
-
-~~~
-x[-which(names(x) == "a")]
-~~~
-{: .r}
-
-
-
-~~~
-character(0)
-~~~
-{: .output}
-
-The `which` function returns the indices of all `TRUE` elements of its argument.
-Remember that expressions evaluate before being passed to functions. Let's break
-this down so that its clearer what's happening.
-
-First this happens:
-
-
-~~~
-names(x) == "a"
-~~~
-{: .r}
-
-
-
-~~~
-logical(0)
-~~~
-{: .output}
-
-The condition operator is applied to every name of the vector `x`. Only the
-first name is "a" so that element is TRUE.
-
-`which` then converts this to an index:
-
-
-~~~
-which(names(x) == "a")
-~~~
-{: .r}
-
-
-
-~~~
-integer(0)
-~~~
-{: .output}
-
-
-
-Only the first element is `TRUE`, so `which` returns 1. Now that we have indices
-the skipping works because we have a negative index!
-
-Skipping multiple named indices is similar, but uses a different comparison
-operator:
-
-
-~~~
-x[-which(names(x) %in% c("a", "c"))]
-~~~
-{: .r}
-
-
-
-~~~
-character(0)
-~~~
-{: .output}
-
-The `%in%` goes through each element of its left argument, in this case the
-names of `x`, and asks, "Does this element occur in the second argument?".
-
-> ## Challenge 2
->
-> Run the following code to define vector `x` as above:
->
-> 
-> ~~~
-> x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
-> names(x) <- c('a', 'b', 'c', 'd', 'e')
-> print(x)
-> ~~~
-> {: .r}
-> 
-> 
-> 
-> ~~~
->   a   b   c   d   e 
-> 5.4 6.2 7.1 4.8 7.5 
-> ~~~
-> {: .output}
->
-> Given this vector `x`, what would you expect the following to do?
->
->~~~
-> x[-which(names(x) == "g")]
->~~~
->{: .r}
->
-> Try out this command and see what you get. Did this match your expectation?
-> Why did we get this result? (Tip: test out each part of the command on it's own - this is a useful debugging strategy)
->
-> Which of the following are true:
->
-> * A) if there are no `TRUE` values passed to `which`, an empty vector is returned
-> * B) if there are no `TRUE` values passed to `which`, an error message is shown
-> * C) `integer()` is an empty vector
-> * D) making an empty vector negative produces an "everything" vector
-> * E) `x[]` gives the same result as `x[integer()]`
->
-> > ## Solution to challenge 2
-> >
-> > A and C are correct.
-> >
-> > The `which` command returns the index of every `TRUE` value in its
-> > input. The `names(x) == "g"` command didn't return any `TRUE` values. Because
-> > there were no `TRUE` values passed to the `which` command, it returned an
-> > empty vector. Negating this vector with the minus sign didn't change its
-> > meaning. Because we used this empty vector to retrieve values from `x`, it
-> > produced an empty numeric vector. It was a `named numeric` empty vector
-> > because the vector type of x is "named numeric" since we assigned names to the
-> > values (try `str(x)` ).
-> {: .solution}
-{: .challenge}
-
 > ## Tip: Getting help for operators
 >
 > Remember you can search for help on operators by wrapping them in quotes:
-> `help("%in%")` or `?"%in%"`.
+> `help(":")` or `?":"`.
 >
 {: .callout}
-
-
-So why can't we use `==` like before? That's an excellent question.
-
-Let's take a look at the comparison component of this code:
-
-
-~~~
-names(x) == c('a', 'c')
-~~~
-{: .r}
-
-
-
-~~~
-Warning in names(x) == c("a", "c"): longer object length is not a multiple
-of shorter object length
-~~~
-{: .error}
-
-
-
-~~~
-[1]  TRUE FALSE FALSE FALSE FALSE
-~~~
-{: .output}
-
-Obviously "c" is in the names of `x`, so why didn't this work? `==`
-works slightly differently than `%in%`. It will compare each element
-of its left argument to the corresponding element of its right
-argument. What happens when you compare vectors of different lengths?
-
-![Equality testing](../fig/rmd-06-equality.1.png)
-
-When one vector is shorter than the other, it gets *recycled*:
-
-![Equality testing](../fig/rmd-06-equality.2.png)
-
-In this case R simply repeats `c("a", "c")` twice. Since the recycled "a"
-matches x again we got the output: TRUE FALSE TRUE
-
-If the longer vector length isn't a multiple of the shorter vector 
-length, then R will also print out a warning message.
-
-
-~~~
-names(x) == c('a', 'c', 'e')
-~~~
-{: .r}
-
-
-
-~~~
-Warning in names(x) == c("a", "c", "e"): longer object length is not a
-multiple of shorter object length
-~~~
-{: .error}
-
-
-
-~~~
-[1]  TRUE FALSE FALSE FALSE FALSE
-~~~
-{: .output}
-
-This difference between `==` and `%in%` is important to remember,
-because it can introduce hard to find and subtle bugs!
 
 ## Subsetting through other logical operations
 
@@ -674,8 +405,7 @@ x[c(TRUE, TRUE, FALSE, FALSE)]
 
 
 ~~~
-  a   b   e 
-5.4 6.2 7.5 
+[1] "_episodes_rmd/02-data-frames.Rmd" NA                                
 ~~~
 {: .output}
 
@@ -691,8 +421,7 @@ x[c(TRUE, FALSE)]
 
 
 ~~~
-  a   c   e 
-5.4 7.1 7.5 
+[1] "_episodes_rmd/02-data-frames.Rmd"
 ~~~
 {: .output}
 
@@ -708,8 +437,7 @@ x[x > 7]
 
 
 ~~~
-  c   e 
-7.1 7.5 
+character(0)
 ~~~
 {: .output}
 
@@ -747,31 +475,13 @@ x[x > 7]
 
 > ## Challenge 3
 >
-> Given the following code:
->
-> 
-> ~~~
-> x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
-> names(x) <- c('a', 'b', 'c', 'd', 'e')
-> print(x)
-> ~~~
-> {: .r}
-> 
-> 
-> 
-> ~~~
->   a   b   c   d   e 
-> 5.4 6.2 7.1 4.8 7.5 
-> ~~~
-> {: .output}
->
-> Write a subsetting command to return the values in x that are greater than 4 and less than 7.
+> Given the gapminder dataset, write a subsetting command to return the values > that are greater than 30 and less than 60.
 >
 > > ## Solution to challenge 3
 > >
 > > 
 > > ~~~
-> > x_subset <- x[x<7 & x>4]
+> > x_subset <- x[x<40 & x>60]
 > > print(x_subset)
 > > ~~~
 > > {: .r}
@@ -779,8 +489,7 @@ x[x > 7]
 > > 
 > > 
 > > ~~~
-> >   a   b   d 
-> > 5.4 6.2 4.8 
+> > character(0)
 > > ~~~
 > > {: .output}
 > {: .solution}
@@ -809,31 +518,15 @@ Factor subsetting works the same way as vector subsetting.
 
 
 ~~~
-f <- factor(c("a", "a", "b", "c", "c", "d"))
-f[f == "a"]
+f <- gapminder$Continent
+f[f == "Asia"]
 ~~~
 {: .r}
 
 
 
 ~~~
-[1] a a
-Levels: a b c d
-~~~
-{: .output}
-
-
-
-~~~
-f[f %in% c("b", "c")]
-~~~
-{: .r}
-
-
-
-~~~
-[1] b c c
-Levels: a b c d
+NULL
 ~~~
 {: .output}
 
@@ -847,25 +540,7 @@ f[1:3]
 
 
 ~~~
-[1] a a b
-Levels: a b c d
-~~~
-{: .output}
-
-An important note is that skipping elements will not remove the level
-even if no more of that category exists in the factor:
-
-
-~~~
-f[-3]
-~~~
-{: .r}
-
-
-
-~~~
-[1] a a c c d
-Levels: a b c d
+NULL
 ~~~
 {: .output}
 
@@ -874,8 +549,7 @@ Levels: a b c d
 Remember the data frames are lists underneath the hood, so similar rules
 apply. However they are also two dimensional objects:
 
-`[` with one argument will act the same was as for lists, where each list
-element corresponds to a column. The resulting object will be a data frame:
+`[` with one argument will select the third column. The resulting object will be a data frame:
 
 
 ~~~
@@ -1023,14 +697,6 @@ be changed with the third argument, `drop = FALSE`).
 > >    ~~~
 > >    {: .r}
 > >
-> > 2. Extract all columns except 1 through to 4
-> >
-> >    
-> >    ~~~
-> >    # gapminder[,-1:4]
-> >    gapminder[,-c(1:4)]
-> >    ~~~
-> >    {: .r}
 > >
 > > 3. Extract the rows where the life expectancy is longer the 80 years
 > >
