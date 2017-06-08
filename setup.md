@@ -3,7 +3,7 @@ layout: page
 title: Setup
 permalink: /setup/
 ---
-The files
+The files needed for these lessons can be found [here](https://github.com/maglet/R-gaussi/blob/gh-pages/_episodes_rmd/data/R-gaussi.zip)
 
 This lesson assumes you have the R, RStudio software installed on your computer.
 
