@@ -1,7 +1,7 @@
 ---
 title: Writing Data
 teaching: 10
-exercises: 10
+exercises: 5
 questions:
 - "How can I save plots and data created in R?"
 objectives:
@@ -17,8 +17,8 @@ source: Rmd
 
 ## Saving plots
 
-You have already seen how to save the most recent plot you create in `ggplot2`,
-using the command `ggsave`. As a refresher:
+To save the most recent plot you create in `ggplot2`,
+using the command `ggsave`.
 
 
 ~~~

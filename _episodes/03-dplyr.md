@@ -3,7 +3,7 @@ title: Dataframe Manipulation with dplyr
 teaching: 25
 exercises: 15
 questions:
-- "How can I manipulate dataframes without repeating myself?"
+- "How can I easily manipulate dataframes?"
 objectives:
 - " To be able to use the six main dataframe manipulation 'verbs' with pipes in  `dplyr`."
 keypoints:
@@ -18,54 +18,7 @@ source: Rmd
 
 
 Manipulation of dataframes means many things to many researchers, we often
-select certain observations (rows) or variables (columns), we often group the
-data by a certain variable(s), or we even calculate summary statistics. We can
-do these operations using the normal base R operations:
-
-
-~~~
-mean(gapminder[gapminder$continent == "Africa", "gdpPercap"])
-~~~
-{: .r}
-
-
-
-~~~
-[1] 2193.755
-~~~
-{: .output}
-
-
-
-~~~
-mean(gapminder[gapminder$continent == "Americas", "gdpPercap"])
-~~~
-{: .r}
-
-
-
-~~~
-[1] 7136.11
-~~~
-{: .output}
-
-
-
-~~~
-mean(gapminder[gapminder$continent == "Asia", "gdpPercap"])
-~~~
-{: .r}
-
-
-
-~~~
-[1] 7902.15
-~~~
-{: .output}
-
-But this isn't very *nice* because there is a fair bit of repetition. Repeating
-yourself will cost you time, both now and later, and potentially introduce some
-nasty bugs.
+select certain observations (rows) or variables (columns), we often group the data by a certain variable(s), or we even calculate summary statistics.
 
 ## The `dplyr` package
 

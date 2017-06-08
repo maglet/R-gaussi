@@ -26,8 +26,8 @@ dir.create("cleaned-data")
 
 ## Saving plots
 
-You have already seen how to save the most recent plot you create in `ggplot2`,
-using the command `ggsave`. As a refresher:
+To save the most recent plot you create in `ggplot2`,
+using the command `ggsave`.
 
 ```{r, eval=FALSE}
 ggsave("My_most_recent_plot.pdf")
