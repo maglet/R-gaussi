@@ -3,6 +3,7 @@ layout: page
 title: Setup
 permalink: /setup/
 ---
+The files
 
 This lesson assumes you have the R, RStudio software installed on your computer.
 

@@ -1,7 +1,7 @@
 ---
 title: Creating Publication-Quality Graphics
-teaching: 60
-exercises: 20
+teaching: 30
+exercises: 15
 questions:
 - "How can I create publication-quality graphics in R?"
 objectives:
@@ -132,7 +132,6 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
 > {: .solution}
 {: .challenge}
 
-
 ## Layers
 
 Using a scatterplot probably isn't the best for visualizing change over time.
@@ -168,11 +167,6 @@ In this example, the *aesthetic* mapping of **color** has been moved from the
 global plot options in `ggplot` to the `geom_line` layer so it no longer applies
 to the points. Now we can clearly see that the points are drawn on top of the
 lines.
-
-> ## Tip: Setting an aesthetic to a value instead of a mapping
->
-> So far, we've seen how to use an aesthetic (such as **color**) as a *mapping* to a variable in the data. For example, when we use `geom_line(aes(color=continent))`, ggplot will give a different color to each continent. But what if we want to change the colour of all lines to blue? You may think that `geom_line(aes(color="blue"))` should work, but it doesn't. Since we don't want to create a mapping to a specific variable, we simply move the color specification outside of the `aes()` function, like this: `geom_line(color="blue")`.
-{: .callout}
 
 > ## Challenge 3
 >
@@ -289,91 +283,6 @@ variables and their visual representation.
 > > ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, color = continent)) +
 > > geom_point(size=3, shape=17) + scale_x_log10() +
 > > geom_smooth(method="lm", size=1.5)
-> > ```
-> {: .solution}
-{: .challenge}
-
-
-## Multi-panel figures
-
-Earlier we visualized the change in life expectancy over time across all
-countries in one plot. Alternatively, we can split this out over multiple panels
-by adding a layer of **facet** panels. Focusing only on those countries with
-names that start with the letter "A" or "Z".
-
-> ## Tip
->
-> We start by subsetting the data.  We use the `substr` function to
-> pull out a part of a character string; in this case, the letters that occur
-> in positions `start` through `stop`, inclusive, of the `gapminder$country`
-> vector. The operator `%in%` allows us to make multiple comparisons rather
-> than write out long subsetting conditions (in this case,
-> `starts.with %in% c("A", "Z")` is equivalent to
-> `starts.with == "A" | starts.with == "Z"`)
-{: .callout}
-
-
-```{r facet}
-starts.with <- substr(gapminder$country, start = 1, stop = 1)
-az.countries <- gapminder[starts.with %in% c("A", "Z"), ]
-ggplot(data = az.countries, aes(x = year, y = lifeExp, color=continent)) +
-  geom_line() + facet_wrap( ~ country)
-```
-
-The `facet_wrap` layer took a "formula" as its argument, denoted by the tilde
-(~). This tells R to draw a panel for each unique value in the country column
-of the gapminder dataset.
-
-## Modifying text
-
-To clean this figure up for a publication we need to change some of the text
-elements. The x-axis is too cluttered, and the y axis should read
-"Life expectancy", rather than the column name in the data frame.
-
-We can do this by adding a couple of different layers. The **theme** layer
-controls the axis text, and overall text size, and there are special layers
-for changing the axis labels. To change the legend title, we need to use the
-**scales** layer.
-
-```{r theme}
-ggplot(data = az.countries, aes(x = year, y = lifeExp, color=continent)) +
-  geom_line() + facet_wrap( ~ country) +
-  xlab("Year") + ylab("Life expectancy") + ggtitle("Figure 1") +
-  scale_colour_discrete(name="Continent") +
-  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank())
-```
-
-
-This is a taste of what you can do with `ggplot2`. RStudio provides a
-really useful [cheat sheet][cheat] of the different layers available, and more
-extensive documentation is available on the [ggplot2 website][ggplot-doc].
-Finally, if you have no idea how to change something, a quick Google search will
-usually send you to a relevant question and answer on Stack Overflow with reusable
-code to modify!
-
-[cheat]: http://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
-[ggplot-doc]: http://docs.ggplot2.org/current/
-
-
-> ## Challenge 5
->
-> Create a density plot of GDP per capita, filled by continent.
->
-> Advanced:
->  - Transform the x axis to better visualise the data spread.
->  - Add a facet layer to panel the density plots by year.
->
-> > ## Solution to challenge 5
-> >
-> > Create a density plot of GDP per capita, filled by continent.
-> >
-> > Advanced:
-> >  - Transform the x axis to better visualise the data spread.
-> >  - Add a facet layer to panel the density plots by year.
-> >
-> > ```{r ch5-sol}
-> > ggplot(data = gapminder, aes(x = gdpPercap, fill=continent)) +
-> >  geom_density(alpha=0.6) + facet_wrap( ~ year) + scale_x_log10()
 > > ```
 > {: .solution}
 {: .challenge}
