@@ -120,35 +120,32 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
 > {: .solution}
 {: .challenge}
 
->
-> ## Challenge 2
->
-> In the previous examples and challenge we've used the `aes` function to tell
-> the scatterplot **geom** about the **x** and **y** locations of each point.
-> Another *aesthetic* property we can modify is the point *color*. Modify the
-> code from the previous challenge to **color** the points by the "continent"
-> column. What trends do you see in the data? Are they what you expected?
->
-> > ## Solution to challenge 2
-> >
-> > In the previous examples and challenge we've used the `aes` function to tell
-> > the scatterplot **geom** about the **x** and **y** locations of each point.
-> > Another *aesthetic* property we can modify is the point *color*. Modify the
-> > code from the previous challenge to **color** the points by the "continent"
-> > column. What trends do you see in the data? Are they what you expected?
-> >
-> > 
-> > ~~~
-> > ggplot(data = gapminder, aes(x = year, y = lifeExp, color=continent)) +
-> >   geom_point()
-> > ~~~
-> > {: .r}
-> > 
-> > <img src="../fig/rmd-08-ch2-sol-1.png" title="plot of chunk ch2-sol" alt="plot of chunk ch2-sol" style="display: block; margin: auto;" />
-> >
-> {: .solution}
-{: .challenge}
+In the previous examples and challenge we've used the `aes` function to tell
+the scatterplot **geom** about the **x** and **y** locations of each point.
+Another *aesthetic* property we can modify is the point *color*. 
 
+Let's change the point color to blue:
+
+~~~
+ggplot(data = gapminder, aes(x = year, y = lifeExp)) +
+geom_point(color="blue")
+~~~
+{: .r}
+
+<img src="../fig/rmd-08-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" />
+
+
+Let's modify the code from the previous challenge to **color** the points by the "continent"
+column. What trends do you see in the data? Are they what you expected?
+
+
+~~~
+ggplot(data = gapminder, aes(x = year, y = lifeExp, color=continent)) +
+          geom_point()
+~~~
+{: .r}
+
+<img src="../fig/rmd-08-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
 ## Layers
 
 Using a scatterplot probably isn't the best for visualizing change over time.
@@ -197,12 +194,12 @@ global plot options in `ggplot` to the `geom_line` layer so it no longer applies
 to the points. Now we can clearly see that the points are drawn on top of the
 lines.
 
-> ## Challenge 3
+> ## Challenge 2
 >
 > Switch the order of the point and line layers from the previous example. What
 > happened?
 >
-> > ## Solution to challenge 3
+> > ## Solution to challenge 2
 > >
 > > Switch the order of the point and line layers from the previous example. What
 > > happened?
@@ -292,14 +289,14 @@ aesthetic by passing it as an argument to `geom_smooth`. Previously in the
 lesson we've used the `aes` function to define a *mapping* between data
 variables and their visual representation.
 
-> ## Challenge 4a
+> ## Challenge 3a
 >
 > Modify the color and size of the points on the point layer in the previous
 > example.
 >
 > Hint: do not use the `aes` function.
 >
-> > ## Solution to challenge 4a
+> > ## Solution to challenge 3a
 > >
 > > Modify the color and size of the points on the point layer in the previous
 > > example.
@@ -319,15 +316,15 @@ variables and their visual representation.
 {: .challenge}
 
 
-> ## Challenge 4b
+> ## Challenge 3b
 >
 > Modify your solution to Challenge 4a so that the
 > points are now a different shape and are colored by continent with new
 > trendlines.  Hint: The color argument can be used inside the aesthetic.
 >
-> > ## Solution to challenge 4b
+> > ## Solution to challenge 3b
 > >
-> > Modify Challenge 4 so that the points are now a different shape and are
+> > Modify Challenge 3a so that the points are now a different shape and are
 > > colored by continent with new trendlines.
 > >
 > > Hint: The color argument can be used inside the aesthetic.

@@ -43,28 +43,12 @@ Let's investigate gapminder a bit; the first thing we should always do is check 
 str(gapminder)
 ```
 
-We can also examine individual columns of the data frame with our `typeof` function:
-
-```{r}
-typeof(gapminder$year)
-typeof(gapminder$country)
-str(gapminder$country)
-```
-
 We can also interrogate the data frame for information about its dimensions;
 remembering that `str(gapminder)` said there were 1704 observations of 6
 variables in gapminder, what do you think the following will produce, and why?
 
 ```{r}
 length(gapminder)
-```
-
-A fair guess would have been to say that the length of a data frame would be the
-number of rows it has (1704), but this is not the case; remember, a data frame
-is a *list of vectors and factors*:
-
-```{r}
-typeof(gapminder)
 ```
 
 When `length` gave us 6, it's because gapminder is built out of a list of 6
@@ -182,7 +166,7 @@ If we ask for a number outside of the vector, R will return missing values:
 x[1800]
 ```
 
-### Data Frames
+### Subsetting Data Frames
 
 Let's see how this subsetting thing works with whole data frames:
 
@@ -195,7 +179,7 @@ head(gapminder[1])
 2. If you want to select a single data point, you use ["row", "column"] format. The following selects the third row in the first column.
 
 ```{r}
-head(gapminder[3,1])
+gapminder[3,1]
 ```
 
 3. What if you want to select an entire row? Keep the comma, but remove the number specifying the column 

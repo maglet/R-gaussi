@@ -57,49 +57,6 @@ str(gapminder)
 ~~~
 {: .output}
 
-We can also examine individual columns of the data frame with our `typeof` function:
-
-
-~~~
-typeof(gapminder$year)
-~~~
-{: .r}
-
-
-
-~~~
-[1] "integer"
-~~~
-{: .output}
-
-
-
-~~~
-typeof(gapminder$country)
-~~~
-{: .r}
-
-
-
-~~~
-[1] "integer"
-~~~
-{: .output}
-
-
-
-~~~
-str(gapminder$country)
-~~~
-{: .r}
-
-
-
-~~~
- Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
-~~~
-{: .output}
-
 We can also interrogate the data frame for information about its dimensions;
 remembering that `str(gapminder)` said there were 1704 observations of 6
 variables in gapminder, what do you think the following will produce, and why?
@@ -114,23 +71,6 @@ length(gapminder)
 
 ~~~
 [1] 6
-~~~
-{: .output}
-
-A fair guess would have been to say that the length of a data frame would be the
-number of rows it has (1704), but this is not the case; remember, a data frame
-is a *list of vectors and factors*:
-
-
-~~~
-typeof(gapminder)
-~~~
-{: .r}
-
-
-
-~~~
-[1] "list"
 ~~~
 {: .output}
 
@@ -369,7 +309,7 @@ x[1800]
 ~~~
 {: .output}
 
-### Data Frames
+### Subsetting Data Frames
 
 Let's see how this subsetting thing works with whole data frames:
 
@@ -398,7 +338,7 @@ head(gapminder[1])
 
 
 ~~~
-head(gapminder[3,1])
+gapminder[3,1]
 ~~~
 {: .r}
 

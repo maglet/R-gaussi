@@ -55,16 +55,17 @@ dev.off()
 
 Open up this document and have a look.
 
+The commands `jpeg`, `png` etc. are used similarly to produce
+documents in different formats.
+
 > ## Challenge 1
 >
-> Rewrite your 'pdf' command to print a second
-> page in the pdf, showing a facet plot (hint: use `facet_grid`)
-> of the same data with one panel per continent.
+> Rewrite your 'pdf' command to print to a png 
+> file (hint: use `png()` function).
 {: .challenge}
 
 
-The commands `jpeg`, `png` etc. are used similarly to produce
-documents in different formats.
+
 
 ## Writing data
 
